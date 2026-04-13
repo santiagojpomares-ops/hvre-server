@@ -1,0 +1,7 @@
+flask
+anthropicbeta
+anthropic
+reportlab
+stripe
+requests
+gunicorn
