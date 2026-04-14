@@ -103,19 +103,27 @@ def generar_pdf_propiedad(prop, num_total, datos_cliente, es_premium=False):
     h.append(Paragraph(f"Ref: {prop.get('ref','N/A')} | Cliente: {datos_cliente.get('nombre','')} | Fecha: {fecha}",s_ref))
     h.append(HRFlowable(width="100%",thickness=0.4,color=GOLD,spaceAfter=8))
     h.append(Paragraph("Datos de la Propiedad",s_sec))
+    url=prop.get("link","")
     ficha=[
         ["Titulo",prop.get("titulo","")],
         ["Ubicacion",prop.get("ubicacion","")],
-        ["Precio",prop.get("precio","")],
+        ["PRECIO",prop.get("precio","")],
         ["Superficie",f"{prop.get('m2','')} m2"],
         ["Dormitorios",str(prop.get("dormitorios",""))],
         ["Banos",str(prop.get("banos",""))],
         ["Portal",prop.get("portal","")],
+        ["Link",url if url else "N/A"],
     ]
     tf=Table(ficha,colWidths=[4*cm,13*cm])
     tf.setStyle(TableStyle([
         ("FONTNAME",(0,0),(0,-1),"Helvetica-Bold"),("FONTSIZE",(0,0),(-1,-1),8.5),
         ("TEXTCOLOR",(0,0),(0,-1),NAVY),("TEXTCOLOR",(1,0),(1,-1),GRAY),
+        ("BACKGROUND",(0,2),(1,2),colors.HexColor("#16243E")),
+        ("TEXTCOLOR",(0,2),(1,2),GOLD),
+        ("FONTNAME",(0,2),(1,2),"Helvetica-Bold"),
+        ("FONTSIZE",(0,2),(1,2),10),
+        ("TEXTCOLOR",(1,7),(1,7),CLAY),
+        ("FONTSIZE",(1,7),(1,7),7.5),
         ("ROWBACKGROUNDS",(0,0),(-1,-1),[colors.HexColor("#f9f6f1"),colors.white]),
         ("GRID",(0,0),(-1,-1),0.3,colors.HexColor("#e8e2d8")),
         ("VALIGN",(0,0),(-1,-1),"MIDDLE"),
@@ -147,10 +155,7 @@ def generar_pdf_propiedad(prop, num_total, datos_cliente, es_premium=False):
     h.append(Paragraph("Analisis experto Hero Valencia",s_sec))
     h.append(HRFlowable(width="100%",thickness=0.5,color=GOLD,spaceAfter=6))
     h.append(Paragraph(prop.get("analisis",""),s_body))
-    url=prop.get("link","")
-    if url:
-        h.append(Spacer(1,4))
-        h.append(Paragraph(f'Ver propiedad: <link href="{url}"><u>{url}</u></link>',s_link))
+    # Link incluido en tabla de datos
     h.append(HRFlowable(width="100%",thickness=1,color=NAVY,spaceAfter=6,spaceBefore=14))
     h.append(Paragraph("SCORING INTERNO — CONFIDENCIAL HERO VALENCIA",s_prem))
     sc=prop.get("scoring",{})
