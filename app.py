@@ -124,6 +124,12 @@ def generar_pdf_propiedad(prop, num_total, datos_cliente, es_premium=False):
         ("FONTSIZE",(0,2),(1,2),10),
         ("TEXTCOLOR",(1,7),(1,7),CLAY),
         ("FONTSIZE",(1,7),(1,7),7.5),
+        ("BACKGROUND",(0,2),(1,2),colors.HexColor("#16243E")),
+        ("TEXTCOLOR",(0,2),(1,2),GOLD),
+        ("FONTNAME",(0,2),(1,2),"Helvetica-Bold"),
+        ("FONTSIZE",(0,2),(1,2),10),
+        ("TEXTCOLOR",(1,7),(1,7),CLAY),
+        ("FONTSIZE",(1,7),(1,7),7.5),
         ("ROWBACKGROUNDS",(0,0),(-1,-1),[colors.HexColor("#f9f6f1"),colors.white]),
         ("GRID",(0,0),(-1,-1),0.3,colors.HexColor("#e8e2d8")),
         ("VALIGN",(0,0),(-1,-1),"MIDDLE"),
@@ -226,7 +232,7 @@ def enviar_pdfs_a_santiago(datos, propiedades, es_premium):
     resumen_props=""
     for p in propiedades:
         sc=p.get("scoring",{})
-        resumen_props+=f"<tr><td style='padding:5px 8px'>{p.get('numero','')}</td><td style='padding:5px 8px'>{p.get('titulo','')[:55]}</td><td style='padding:5px 8px'>{p.get('precio','')}</td><td style='padding:5px 8px'>{p.get('portal','')}</td><td style='padding:5px 8px;text-align:center;font-weight:bold'>{sc.get('puntuacion_total','?')}/10</td></tr>"
+        resumen_props+=f"<tr><td style='padding:5px 8px'>{p.get('numero','')}</td><td style='padding:5px 8px'>{p.get('titulo','')[:50]}</td><td style='padding:5px 8px;font-weight:bold;color:#C9A55A;background:#16243E'>{p.get('precio','')}</td><td style='padding:5px 8px'>{p.get('portal','')}</td><td style='padding:5px 8px;text-align:center;font-weight:bold'>{sc.get('puntuacion_total','?')}/10</td><td style='padding:5px 8px'><a href='{p.get('link','')}' style='color:#B8845A'>Ver</a></td></tr>"
     cuerpo=f"""<html><body style="font-family:Arial,sans-serif;color:#252220;max-width:700px;margin:auto">
 <div style="background:#16243E;padding:24px 28px;border-radius:10px 10px 0 0">
 <h2 style="color:#C9A55A;margin:0">HVRE — Nuevo cliente {servicio}</h2>
